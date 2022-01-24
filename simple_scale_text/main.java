@@ -116,33 +116,32 @@ class Storage {
         }
 }
 class Calculator{
-
-        public String calculate(String text,int Scale){
-               String export="";
-               String[] lines=  text.split("\n");
-               //scale y
-                for (int i = 0; i < lines.length; i++) {
-                            for (int k = 0; k < Scale; k++) {
-                            export+=lines[i]+"\n";
+        protected String Scale_horizontal(String string,Integer scale){
+            String [] lines=string.split("\n");
+            String result="";
+            for (int i = 0; i < lines.length; i++) {
+                String[] point=lines[i].split("");
+                for (int j = 0; j < point.length; j++) {
+                    for (int k = 0; k < scale; k++) {
+                        result+=point[j];
                     }
                 }
-
-                //scale x
-                lines=export.split("\n");
-                export="";
-                for (int i = 0; i < lines.length; i++) {
-
-                        String[] point=lines[i].split("");
-                        for (int j = 0; j < point.length; j++) {
-                                for (int k = 0; k < Scale; k++) {
-                                        export+=point[j];
-                                }
-                        }
-
-                        export+="\n";
-                }
-
-             return  export;
+                result+="\n";
+            }
+            return result;
         }
-
+        protected String Scale_vertical(String string,Integer scale){
+            String result="";
+            String[] lines=  string.split("\n");
+            for (int i = 0; i < lines.length; i++) {
+                for (int k = 0; k < scale; k++) {
+                    result+=lines[i]+"\n";
+                }
+            }
+            return  result;
+        }
+        public String calculate(String text,int Scale){
+            String result=this.Scale_vertical(text,Scale);
+            return this.Scale_horizontal(result,Scale);
+        }
 }
